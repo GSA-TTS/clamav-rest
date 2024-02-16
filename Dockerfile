@@ -21,8 +21,9 @@ RUN  apk update upgrade && apk add --no-cache tzdata
 # Enable Bash & logrotate
 RUN apk add bash logrotate
 
-# Update lobcrypto3
+# Update packages found by trivy
 RUN apk upgrade libssl3 libcrypto3
+RUN apk upgrade libxml2
 
 COPY clamavlogrotate /etc/logrotate.d/clamav
 
