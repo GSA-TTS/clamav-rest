@@ -3,8 +3,10 @@
 mkdir -p /clamav/etc
 mkdir -p /clamav/data
 mkdir -p /clamav/tmp
-chown -R clamav.clamav /clamav/data
 cp /etc/clamav/* /clamav/etc/
+chown -R clamav.clamav /clamav/data
+chown -R clamav.clamav /clamav/tmp
+chmod 0700 /clamav/etc/freshclam.conf
 
 # Replace values in freshclam.conf
 sed -i 's/^#\?NotifyClamd .*$/NotifyClamd \/clamav\/etc\/clamd.conf/g' /clamav/etc/freshclam.conf
