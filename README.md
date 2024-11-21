@@ -49,6 +49,11 @@ This is a two in one docker image which runs the open source virus scanner ClamA
 
 > **📢 New in December 2025:** We've migrated to semantic versioning! Docker images are now tagged with version numbers like `v1.2.3` instead of dates. Releases are automatically created when pull requests are merged, with versions determined by [conventional commit messages](CONTRIBUTING.md). Check our [Releases page](https://github.com/ajilach/clamav-rest/releases) for detailed changelogs.
 
+# FAC Updates
+An issue was found using `echo "RELOAD" | nc 127.0.0.1 3310` behind a proxy to force reload the sig database. Due to this, and with us rebuilding the image weekly to get a new sha256, on top of our terraform redeploying clamav during the week with new sha256's, force reloading the database like this makes it impossible to use the scanner, as `3310` gets soft locked on the database update, and causes any subsequent scans to fail.
+
+# Updates
+
 ## Installation
 
 Automated builds of the image are available on [Docker Hub](https://hub.docker.com/r/ajilaag/clamav-rest) and are the recommended method of installation. Grab the lastest release:
