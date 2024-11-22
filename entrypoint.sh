@@ -55,6 +55,13 @@ if [ -n "$PROXY_SERVER" ]; then
         freshclam --config-file=/clamav/etc/freshclam.conf --daemon &
         clamd --config-file=/clamav/etc/clamd.conf &
         /usr/bin/clamav-rest &
+        # Despite not having the [echo "RELOAD" | nc 127.0.0.1 3310] force reload of the clamd database
+        # after checking the running instance behind the proxy a day later, it was succcessfully doing
+        # its own internal self check.
+        # 2024-11-22T08:49:47.37-0500 [APP/PROC/WEB/0] OUT Fri Nov 22 14:49:47 2024 -> SelfCheck: Database status OK.
+        # Since the nc command holds 3310 behind our proxy for some unknown reason, we are willing to not have immediate
+        # clamd database signature reload in favor of freshclam successfully going through the proxy
+        # and doing the clamd database reload on its own, validating that the SelfCheck is working as intended
     ) 2>&1 | tee -a /var/log/clamav/clamav.log
 else
     echo "No Proxy Detected"
