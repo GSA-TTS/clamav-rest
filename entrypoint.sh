@@ -103,8 +103,6 @@ else
     ) 2>&1 | tee -a /var/log/clamav/clamav.log
 fi
 
-
-
 pids=`jobs -p`
 
 exitcode=0
