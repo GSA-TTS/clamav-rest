@@ -49,7 +49,7 @@ if [ -z "$(ls -A /clamav/data)" ]; then
   cp /var/lib/clamav/* /clamav/data/
 fi
 
-if [ -n "$PROXY_PORT" ]; then
+if [ -n "$PROXY_SERVER" ]; then
     echo "Proxy Detected"
     (
         freshclam --config-file=/clamav/etc/freshclam.conf --daemon &
