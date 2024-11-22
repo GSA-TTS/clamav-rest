@@ -69,7 +69,7 @@ else
         # during the startup of the container (WARNING: Clamd was NOT notified: Can't connect to clamd through /run/clamav/clamd.sock: No such file or directory).
         # So only if a newer database version is available clamd will be notified next time, and this can take hours/days.
         # Remarks: The socket port is configured in the .Dockerfile itself.
-        sleep 30s
+        sleep 120s
         echo "RELOAD" | nc 127.0.0.1 3310 &
     ) 2>&1 | tee -a /var/log/clamav/clamav.log
 fi
