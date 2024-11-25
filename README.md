@@ -7,16 +7,19 @@
     - [Status Codes](#status-codes)
 - [Configuration](#configuration)
     - [Environment Variables](#environment-variables)
-    - [Networking](#networking)  
+    - [Networking](#networking)
 - [Maintenance / Monitoring](#maintenance--monitoring)
     - [Shell Access](#shell-access)
 
-- [Developing](#developing)    
+- [Developing](#developing)
 - [References](#references)
 
 # Introduction
 
 This is a two in one docker image which runs the open source virus scanner ClamAV (https://www.clamav.net/), performs automatic virus definition updates as a background process and provides a REST API interface to interact with the ClamAV process.
+
+# FAC Updates
+An issue was found using `echo "RELOAD" | nc 127.0.0.1 3310` behind a proxy to force reload the sig database. Due to this, and with us rebuilding the image weekly to get a new sha256, on top of our terraform redeploying clamav during the week with new sha256's, force reloading the database like this makes it impossible to use the scanner, as `3310` gets soft locked on the database update, and causes any subsequent scans to fail.
 
 # Updates
 
